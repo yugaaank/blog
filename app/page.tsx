@@ -17,15 +17,15 @@ export default function Home() {
         <section className="grid grid-cols-3 border-b">
           <div className="border-r p-8 py-16">
             <h2 className="font-bold text-accent">01</h2>
-            <p className="mt-2 text-sm text-muted">section one</p>
+            <p className="mt-2 text-sm text-muted">About</p>
           </div>
           <div className="border-r p-8 py-16">
             <h2 className="font-bold text-accent">02</h2>
-            <p className="mt-2 text-sm text-muted">section two</p>
+            <p className="mt-2 text-sm text-muted">Blog</p>
           </div>
           <div className="p-8 py-16">
             <h2 className="font-bold text-accent">03</h2>
-            <p className="mt-2 text-sm text-muted">section three</p>
+            <p className="mt-2 text-sm text-muted">Projects</p>
           </div>
         </section>
       </main>
