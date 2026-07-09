@@ -3,4 +3,8 @@
     "label": "dev start",
     "command": "clear && bun dev",
   },
+  {
+    "label": "dev",
+    "command": "bun dev",
+  }
 ]
