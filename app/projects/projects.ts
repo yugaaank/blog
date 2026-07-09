@@ -26,6 +26,7 @@ export const projects: Project[] = [
     github: "https://github.com/ygnk2/blog",
     date: "2026-07-01",
     tags: ["web", "react", "nextjs"],
+    relatedPosts: ["my-first-post", "midweek-thoughts"],
     challenges: [
       "Figuring out Tailwind CSS v4's new API — the theme system and border utilities work differently than v3.",
       "Getting MDX working smoothly with the App Router's file-based routing.",

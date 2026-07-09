@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects, type Project } from "../projects";
+import { posts } from "@/app/blog/posts";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -115,6 +116,28 @@ function ProjectPage({ project }: { project: Project }) {
               </li>
             ))}
           </ul>
+        </Section>
+      )}
+
+      {/* Related Posts */}
+      {project.relatedPosts && project.relatedPosts.length > 0 && (
+        <Section title="Related Posts">
+          <div className="divide-y divide-border">
+            {project.relatedPosts.map((slug) => {
+              const post = posts.find((p) => p.slug === slug);
+              if (!post) return null;
+              return (
+                <Link
+                  key={slug}
+                  href={`/blog/${slug}`}
+                  className="flex items-center justify-between gap-4 px-4 py-3 transition hover:bg-surface"
+                >
+                  <span className="font-bold text-accent">{post.title}</span>
+                  <span className="text-xs text-muted">{post.date}</span>
+                </Link>
+              );
+            })}
+          </div>
         </Section>
       )}
 

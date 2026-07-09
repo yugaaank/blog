@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   description: string;
   date: string;
+  relatedProjects?: string[];
 }
 
 export const posts: Post[] = [
@@ -12,6 +13,7 @@ export const posts: Post[] = [
     title: "My First Post",
     description: "Welcome to my blog, built with Next.js and MDX.",
     date: "2026-07-09",
+    relatedProjects: ["this-website"],
   },
   {
     slug: "midweek-thoughts",
