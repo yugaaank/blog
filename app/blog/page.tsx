@@ -92,42 +92,6 @@ export default function Blog() {
 
   grouped.sort((a, b) => a.order - b.order);
 
-  const items: React.ReactNode[] = [];
-  grouped.forEach((section, si) => {
-    if (si > 0) {
-      items.push(
-        <div key={`${section.key}-divider`} className="flex items-center gap-3 px-8 py-3 bg-surface/50">
-          <div className="h-px flex-1 bg-border" />
-          <span className="shrink-0 text-base font-bold tracking-wider text-accent">{section.label}</span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-      );
-    }
-    section.posts.forEach((post, pi) => {
-      const first = pi === 0;
-      const last = pi === section.posts.length - 1;
-      const after = first ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
-        : last ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
-        : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
-      items.push(
-        <Link
-          key={post.slug}
-          href={`/blog/${post.slug}`}
-          className={`relative flex items-center h-10 px-8 py-3 transition hover:bg-surface group ${after}`}
-        >
-          <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
-          <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
-            {formatDate(post.date)}
-          </span>
-          <div className="min-w-0">
-            <span className="font-bold text-accent group-hover:underline">{post.title}</span>
-            <span className="ml-2 text-xs text-muted">{post.description}</span>
-          </div>
-        </Link>
-      );
-    });
-  });
-
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
@@ -140,8 +104,55 @@ export default function Blog() {
         </div>
       </section>
       <div className="h-4 border-b border-border" />
-      <div className="divide-y divide-border border-b">
-        {items}
+      <div className="border-b">
+        {grouped.map((section, si) => (
+          <div key={section.key} className={si < grouped.length - 1 ? 'border-b border-border' : ''}>
+            <div className="flex items-center justify-center px-8 py-3 bg-surface/50">
+              <span className="text-lg font-bold tracking-wider text-green">{section.label}</span>
+            </div>
+            <div className="pl-8 pb-4">
+              {section.posts.length === 1 ? (
+                <Link
+                  key={section.posts[0].slug}
+                  href={`/blog/${section.posts[0].slug}`}
+                  className="flex items-center h-10 group"
+                >
+                  <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                    {formatDate(section.posts[0].date)}
+                  </span>
+                  <div className="min-w-0">
+                    <span className="font-bold text-accent group-hover:underline">{section.posts[0].title}</span>
+                    <span className="ml-2 text-xs text-muted">{section.posts[0].description}</span>
+                  </div>
+                </Link>
+              ) : section.posts.map((post, pi) => {
+                const first = pi === 0;
+                const last = pi === section.posts.length - 1;
+                const after = first
+                  ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
+                  : last
+                  ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
+                  : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className={`relative flex items-center h-10 group ${after}`}
+                  >
+                    <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
+                    <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                      {formatDate(post.date)}
+                    </span>
+                    <div className="min-w-0">
+                      <span className="font-bold text-accent group-hover:underline">{post.title}</span>
+                      <span className="ml-2 text-xs text-muted">{post.description}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
