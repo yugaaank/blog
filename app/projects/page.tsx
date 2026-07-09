@@ -1,12 +1,21 @@
 import Link from "next/link";
 import { projects } from "./projects";
+import { FallingPattern } from "@/components/ui/falling-pattern";
 
 export default function Projects() {
   return (
-    <div className="py-16">
-      <h1 className="px-8 text-4xl font-bold">Projects</h1>
-      <p className="mt-2 px-8 text-muted">Things I&apos;ve built</p>
-      <div className="mt-8 divide-y divide-border border-b">
+    <>
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0">
+          <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
+        </div>
+        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
+          <h1 className="text-4xl font-bold">Projects</h1>
+          <p className="mt-2 text-muted">Things I&apos;ve built</p>
+        </div>
+      </section>
+      <div className="h-4 border-b border-border" />
+      <div className="divide-y divide-border border-b">
         {projects.map((project) => (
           <Link
             key={project.slug}
@@ -30,6 +39,6 @@ export default function Projects() {
           </Link>
         ))}
       </div>
-    </div>
+    </>
   );
 }

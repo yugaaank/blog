@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Post } from "./posts";
 import { posts } from "./posts";
+import { FallingPattern } from "@/components/ui/falling-pattern";
 
 const now = new Date();
 
@@ -91,58 +92,56 @@ export default function Blog() {
 
   grouped.sort((a, b) => a.order - b.order);
 
+  const items: React.ReactNode[] = [];
+  grouped.forEach((section, si) => {
+    if (si > 0) {
+      items.push(
+        <div key={`${section.key}-divider`} className="flex items-center gap-3 px-8 py-3 bg-surface/50">
+          <div className="h-px flex-1 bg-border" />
+          <span className="shrink-0 text-base font-bold tracking-wider text-accent">{section.label}</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+      );
+    }
+    section.posts.forEach((post, pi) => {
+      const first = pi === 0;
+      const last = pi === section.posts.length - 1;
+      const after = first ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
+        : last ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
+        : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
+      items.push(
+        <Link
+          key={post.slug}
+          href={`/blog/${post.slug}`}
+          className={`relative flex items-center h-10 px-8 py-3 transition hover:bg-surface group ${after}`}
+        >
+          <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
+          <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+            {formatDate(post.date)}
+          </span>
+          <div className="min-w-0">
+            <span className="font-bold text-accent group-hover:underline">{post.title}</span>
+            <span className="ml-2 text-xs text-muted">{post.description}</span>
+          </div>
+        </Link>
+      );
+    });
+  });
+
   return (
     <>
-      <h1 className="px-8 text-4xl font-bold">Blog</h1>
-      <p className="mt-2 px-8 text-muted">All posts</p>
-      <div className="mt-8">
-        {grouped.map((section, si) => (
-          <div key={section.key} className={si < grouped.length - 1 ? 'mb-10' : ''}>
-            {/* Horizontal divider with label */}
-            <div className="flex items-center gap-3 px-8">
-              <div className="h-px flex-1 bg-border" />
-              <span className="shrink-0 text-base font-bold tracking-wider text-accent">{section.label}</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            {/* Tree */}
-            <div className="mt-4 pl-8">
-              {section.posts.length === 1 ? (
-                <Link href={`/blog/${section.posts[0].slug}`} className="flex items-center h-7 group">
-                  <span className="shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
-                    {formatDate(section.posts[0].date)}
-                  </span>
-                  <div className="min-w-0">
-                    <span className="font-bold text-accent group-hover:underline">{section.posts[0].title}</span>
-                    <span className="ml-2 text-xs text-muted">{section.posts[0].description}</span>
-                  </div>
-                </Link>
-              ) : section.posts.map((post, pi) => {
-                const first = pi === 0;
-                const last = pi === section.posts.length - 1;
-                const after = first ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
-                  : last ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
-                  : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
-                return (
-                  <Link
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className={`relative flex items-center h-7 ${after}`}
-                  >
-                    <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
-                    <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
-                      {formatDate(post.date)}
-                    </span>
-                    <div className="min-w-0">
-                      <span className="font-bold text-accent group-hover:underline">{post.title}</span>
-                      <span className="ml-2 text-xs text-muted">{post.description}</span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0">
+          <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
+        </div>
+        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
+          <h1 className="text-4xl font-bold">Blog</h1>
+          <p className="mt-2 text-muted">All posts</p>
+        </div>
+      </section>
+      <div className="h-4 border-b border-border" />
+      <div className="divide-y divide-border border-b">
+        {items}
       </div>
     </>
   );
