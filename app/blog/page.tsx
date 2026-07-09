@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Post } from "./posts";
 import { posts } from "./posts";
 
 const now = new Date();
@@ -94,28 +95,53 @@ export default function Blog() {
     <>
       <h1 className="px-8 text-4xl font-bold">Blog</h1>
       <p className="mt-2 px-8 text-muted">All posts</p>
-      <div className="mt-8 space-y-10">
-        {grouped.map((section) => (
-          <section key={section.key}>
-            <h2 className="mb-3 text-sm font-bold tracking-wider text-accent">{section.label}</h2>
-            <div>
-              {section.posts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="flex items-center gap-4 border-b border-border px-4 py-3 transition hover:bg-surface"
-                >
-                  <time className="shrink-0 text-xs text-muted w-[85px]">
-                    {formatDate(post.date)}
-                  </time>
+      <div className="mt-8">
+        {grouped.map((section, si) => (
+          <div key={section.key} className={si < grouped.length - 1 ? 'mb-10' : ''}>
+            {/* Horizontal divider with label */}
+            <div className="flex items-center gap-3 px-8">
+              <div className="h-px flex-1 bg-border" />
+              <span className="shrink-0 text-base font-bold tracking-wider text-accent">{section.label}</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            {/* Tree */}
+            <div className="mt-4 pl-8">
+              {section.posts.length === 1 ? (
+                <Link href={`/blog/${section.posts[0].slug}`} className="flex items-center h-7 group">
+                  <span className="shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                    {formatDate(section.posts[0].date)}
+                  </span>
                   <div className="min-w-0">
-                    <h3 className="font-bold text-accent">{post.title}</h3>
-                    <p className="mt-0.5 text-xs text-muted">{post.description}</p>
+                    <span className="font-bold text-accent group-hover:underline">{section.posts[0].title}</span>
+                    <span className="ml-2 text-xs text-muted">{section.posts[0].description}</span>
                   </div>
                 </Link>
-              ))}
+              ) : section.posts.map((post, pi) => {
+                const first = pi === 0;
+                const last = pi === section.posts.length - 1;
+                const after = first ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
+                  : last ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
+                  : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className={`relative flex items-center h-7 ${after}`}
+                  >
+                    <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
+                    <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                      {formatDate(post.date)}
+                    </span>
+                    <div className="min-w-0">
+                      <span className="font-bold text-accent group-hover:underline">{post.title}</span>
+                      <span className="ml-2 text-xs text-muted">{post.description}</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-          </section>
+          </div>
         ))}
       </div>
     </>

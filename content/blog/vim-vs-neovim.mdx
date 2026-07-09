@@ -1,0 +1,22 @@
+# Vim vs Neovim in 2026
+
+_January 18, 2026_
+
+I used Vim for four years before switching to Neovim. Here's what changed.
+
+## Why I switched
+
+- **Better LSP integration** — `vim.lsp.buf.*` is cleaner than any Vim plugin setup for LSP
+- **Lua configs** — Vimscript works but Lua is just nicer for logic
+- **Built-in terminal** — `:terminal` in Neovim is actually usable
+
+## What I miss
+
+- **Stability** — Vim hasn't changed in a decade and that's a feature
+- **$EDITOR** — it just works everywhere, Neovim isn't always installed
+
+## Current setup
+
+I use Neovim daily with a minimal Lua config. LSP for completion and diagnostics, Treesitter for syntax highlighting, Telescope for file search. That's it — no 50-plugin kitchen sink.
+
+I can still reach for vanilla `vi` on a server and be productive. That's the real test.

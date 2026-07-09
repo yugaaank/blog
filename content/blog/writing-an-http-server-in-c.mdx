@@ -1,0 +1,25 @@
+# Writing an HTTP Server in C
+
+_February 25, 2026_
+
+No external dependencies. No framework. Just C, POSIX sockets, and enough coffee to read RFC 7230 without falling asleep.
+
+## What it does
+
+- Serves static files from a document root
+- Handles GET and HEAD requests
+- MIME type detection from file extensions
+- Keep-Alive connection support
+- Directory listing for paths without an index file
+
+## What I learned
+
+**Partial reads** — a single `read()` call might not return the full request. You need to buffer and retry. Same for `write()` on responses.
+
+**Request parsing** — HTTP headers are case-insensitive, and the spec allows bizarre whitespace. A paranoid parser is a working parser.
+
+**Keep-Alive** — the connection stays open after a response. You need to read the next request on the same socket. This means the server can't just handle one request and exit — it needs a loop.
+
+## Code
+
+~500 lines of C. [github.com/yugaaank/http-server](https://github.com/yugaaank/http-server)
