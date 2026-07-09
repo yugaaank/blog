@@ -54,7 +54,7 @@ export default function Home() {
       <div className="h-4 border-b" />
       <section className="border-b">
         <div className="flex flex-col items-center justify-center px-16 py-32">
-          <ScrambledHeading as="h2" className="text-2xl font-bold">About Me</ScrambledHeading>
+          <ScrambledHeading as="h2" className="text-2xl font-bold">About-Me</ScrambledHeading>
           <p className="mt-4 max-w-lg text-center text-muted">
             I&apos;m a 3rd year Computer Science student who enjoys building things that actually work,
             breaking them, and then fixing them properly. I like projects that feel real, not tutorial leftovers.
@@ -75,7 +75,7 @@ export default function Home() {
       <div className="h-4 border-b" />
       <section className="border-b">
         <div className="flex flex-col items-center justify-center px-16 py-32">
-          <ScrambledHeading as="h2" className="text-2xl font-bold">Contact Me</ScrambledHeading>
+          <ScrambledHeading as="h2" className="text-2xl font-bold">Contact-Me</ScrambledHeading>
           <p className="mt-4 max-w-lg text-center text-muted">
             Feel free to reach out — I&apos;m always open to interesting conversations.
           </p>
