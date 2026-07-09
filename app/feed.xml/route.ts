@@ -11,7 +11,7 @@ function esc(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-export async function GET() {
+export function GET() {
   const items = posts
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .map(

@@ -56,68 +56,60 @@ function ProjectPage({ project }: { project: Project }) {
       </Section>
 
       {/* Timeline */}
-      {project.timeline && (
-        <Section title="Timeline">
-          <div className="space-y-4">
-            {project.timeline.map((entry, i) => (
-              <div key={i} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="size-2 rounded-full bg-accent" />
-                  {i < project.timeline!.length - 1 && (
-                    <div className="w-px flex-1 bg-accent/30" />
-                  )}
-                </div>
-                <div className="pb-4">
-                  <span className="text-xs text-muted">{entry.date}</span>
-                  <h3 className="font-bold text-accent">{entry.phase}</h3>
-                  <p className="mt-1 text-sm text-muted">{entry.desc}</p>
-                </div>
+      <Section title="Timeline">
+        <div className="space-y-4">
+          {project.timeline.map((entry, i) => (
+            <div key={i} className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="size-2 rounded-full bg-accent" />
+                {i < project.timeline.length - 1 && (
+                  <div className="w-px flex-1 bg-accent/30" />
+                )}
               </div>
-            ))}
-          </div>
-        </Section>
-      )}
+              <div className="pb-4">
+                <span className="text-xs text-muted">{entry.date}</span>
+                <h3 className="font-bold text-accent">{entry.phase}</h3>
+                <p className="mt-1 text-sm text-muted">{entry.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* Challenges */}
-      {project.challenges && (
-        <Section title="Challenges">
-          <ul className="space-y-3">
-            {project.challenges.map((c, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted">
-                <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red/50" />
-                {c}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
+      <Section title="Challenges">
+        <ul className="space-y-3">
+          {project.challenges.map((c, i) => (
+            <li key={i} className="flex gap-3 text-sm text-muted">
+              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red/50" />
+              {c}
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       {/* Features */}
-      {project.features && (
-        <Section title="Features">
-          <ul className="space-y-3">
-            {project.features.map((l, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted">
-                <span className="mt-1 size-1.5 shrink-0 rounded-full bg-green/50" />
-                {l}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
+      <Section title="Features">
+        <ul className="space-y-3">
+          {project.features.map((l, i) => (
+            <li key={i} className="flex gap-3 text-sm text-muted">
+              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-green/50" />
+              {l}
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       {/* Future Improvements */}
-      {project.future && (
-        <Section title="Future Improvements">
-          <ul className="space-y-2">
-            {project.future.map((f, i) => (
-              <li key={i} className="text-sm text-muted">
-                → {f}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
+      <Section title="Future Improvements">
+        <ul className="space-y-2">
+          {project.future.map((f, i) => (
+            <li key={i} className="text-sm text-muted">
+              → {f}
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       {/* Related Posts */}
       {project.relatedPosts && project.relatedPosts.length > 0 && (

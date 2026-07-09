@@ -99,48 +99,21 @@ export default function Blog() {
           <section key={section.key}>
             <h2 className="mb-3 text-sm font-bold tracking-wider text-accent">{section.label}</h2>
             <div>
-              {section.posts.map((post, i) => {
-                const isFirst = i === 0;
-                const isLast = i === section.posts.length - 1;
-                const single = section.posts.length === 1;
-                return (
-                  <div key={post.slug} className="flex">
-                    {/* Tree lines */}
-                    {!single && (
-                      <div className="flex flex-col items-center w-5 shrink-0">
-                        {/* Vertical connector from above */}
-                        {isFirst ? (
-                          <div className="h-3" />
-                        ) : (
-                          <div className="w-px flex-1 bg-accent/30" />
-                        )}
-                        {/* Horizontal branch */}
-                        <div className="w-full h-px bg-accent/30" />
-                        {/* Vertical connector to below */}
-                        {isLast ? (
-                          <div className="h-3" />
-                        ) : (
-                          <div className="w-px flex-1 bg-accent/30" />
-                        )}
-                      </div>
-                    )}
-                    {single && <div className="w-5 shrink-0" />}
-                    {/* Post link */}
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="flex flex-1 items-center gap-4 border-b border-border px-4 py-3 transition hover:bg-surface"
-                    >
-                      <time className="shrink-0 text-xs text-muted w-[85px]">
-                        {formatDate(post.date)}
-                      </time>
-                      <div className="min-w-0">
-                        <h3 className="font-bold text-accent">{post.title}</h3>
-                        <p className="mt-0.5 text-xs text-muted">{post.description}</p>
-                      </div>
-                    </Link>
+              {section.posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="flex items-center gap-4 border-b border-border px-4 py-3 transition hover:bg-surface"
+                >
+                  <time className="shrink-0 text-xs text-muted w-[85px]">
+                    {formatDate(post.date)}
+                  </time>
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-accent">{post.title}</h3>
+                    <p className="mt-0.5 text-xs text-muted">{post.description}</p>
                   </div>
-                );
-              })}
+                </Link>
+              ))}
             </div>
           </section>
         ))}

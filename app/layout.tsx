@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
-const jetbrains = JetBrains_Mono({ subsets: ["latin"] });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "optional" });
 
 export const metadata: Metadata = {
   title: "Blog",

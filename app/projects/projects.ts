@@ -9,10 +9,10 @@ export interface Project {
   date: string;
   tags: string[];
   relatedPosts?: string[];
-  challenges?: string[];
-  features?: string[];
-  future?: string[];
-  timeline?: { phase: string; date: string; desc: string }[];
+  challenges: string[];
+  features: string[];
+  future: string[];
+  timeline: { phase: string; date: string; desc: string }[];
 }
 
 export const projects: Project[] = [
