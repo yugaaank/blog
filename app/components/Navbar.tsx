@@ -7,8 +7,8 @@ export default function Navbar() {
         ygnk
       </Link>
       <div className="flex gap-6 text-sm">
-        <span className="cursor-pointer hover:text-accent">posts</span>
-        <span className="cursor-pointer hover:text-accent">contact</span>
+        <Link href="/blog" className="hover:text-accent">blog</Link>
+        <Link href="/projects" className="hover:text-accent">projects</Link>
       </div>
     </nav>
   );
