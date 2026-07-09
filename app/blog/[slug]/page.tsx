@@ -32,7 +32,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   );
 
   return (
-    <>
+    <div className="px-8">
       {content}
       {relatedProjects.length > 0 && (
         <div className="mt-8 border">
@@ -53,6 +53,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

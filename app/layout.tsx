@@ -7,7 +7,7 @@ import Footer from "@/app/components/Footer";
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "optional" });
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Yugank Rathore",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${jetbrains.className} bg-bg text-fg`}>
       <body className="flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-1 px-[20%]">
-          <div className="border-x min-h-full">{children}</div>
+        <main className="flex-1 px-[20%] flex">
+          <div className="border-x flex-1">{children}</div>
         </main>
         <Footer />
       </body>

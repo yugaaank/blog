@@ -23,7 +23,7 @@ export const projects: Project[] = [
     description:
       "This very website. A digital garden, portfolio, and technical blog built from scratch with Next.js 16, Tailwind CSS v4, and MDX. Features structural border-based design, Dracula-inspired dark theme, and a timeline-organized blog.",
     techStack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "MDX"],
-    github: "https://github.com/ygnk2/blog",
+    github: "https://github.com/yugaaank/blog",
     date: "2026-07-01",
     tags: ["web", "react", "nextjs"],
     relatedPosts: ["my-first-post", "midweek-thoughts"],

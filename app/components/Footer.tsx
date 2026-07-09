@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-8 text-center">
           <div className="flex items-center gap-6 flex-wrap justify-center">
             <a
-              href="https://github.com/ygnk2"
+              href="https://github.com/yugaaank"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted hover:text-accent transition-colors"
@@ -14,15 +14,15 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://twitter.com/ygnk2"
+              href="https://x.com/yugaaank"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted hover:text-accent transition-colors"
             >
-              Twitter
+              X
             </a>
             <a
-              href="https://linkedin.com/in/ygnk2"
+              href="https://www.linkedin.com/in/yugank-rathore-617614317"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted hover:text-accent transition-colors"
@@ -30,10 +30,12 @@ export default function Footer() {
               LinkedIn
             </a>
             <a
-              href="mailto:hello@ygnk.dev"
+              href="https://www.instagram.com/yugaaank"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted hover:text-accent transition-colors"
             >
-              Email
+              Instagram
             </a>
           </div>
 

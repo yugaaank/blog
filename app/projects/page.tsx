@@ -3,9 +3,9 @@ import { projects } from "./projects";
 
 export default function Projects() {
   return (
-    <div className="p-8 py-16">
-      <h1 className="text-4xl font-bold">Projects</h1>
-      <p className="mt-2 text-muted">Things I&apos;ve built</p>
+    <div className="py-16">
+      <h1 className="px-8 text-4xl font-bold">Projects</h1>
+      <p className="mt-2 px-8 text-muted">Things I&apos;ve built</p>
       <div className="mt-8 divide-y divide-border border-b">
         {projects.map((project) => (
           <Link

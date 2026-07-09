@@ -92,8 +92,8 @@ export default function Blog() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold">Blog</h1>
-      <p className="mt-2 text-muted">All posts</p>
+      <h1 className="px-8 text-4xl font-bold">Blog</h1>
+      <p className="mt-2 px-8 text-muted">All posts</p>
       <div className="mt-8 space-y-10">
         {grouped.map((section) => (
           <section key={section.key}>
