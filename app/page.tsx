@@ -11,10 +11,10 @@ export default function Home() {
       </nav>
       <main>
         <section className="flex flex-col items-center justify-center border-b p-16 py-32">
-          <h1 className="text-4xl font-bold">hero title</h1>
-          <p className="mt-2 text-muted">hero subtitle</p>
+          <h1 className="text-4xl font-bold">Yugank Rathore </h1>
+          <p className="mt-2 text-muted">About/Blog/Projects</p>
         </section>
-        <section className="grid grid-cols-3">
+        <section className="grid grid-cols-3 border-b">
           <div className="border-r p-8 py-16">
             <h2 className="font-bold text-accent">01</h2>
             <p className="mt-2 text-sm text-muted">section one</p>
