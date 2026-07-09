@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { posts } from "@/app/blog/posts";
 import { projects } from "@/app/projects/projects";
+import { FallingPattern } from "@/components/ui/falling-pattern";
 
 export default function Home() {
   const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
@@ -9,8 +10,14 @@ export default function Home() {
 
   return (
     <main>
-      <section className="border-b">
-        <div className="flex flex-col items-center justify-center px-16 py-32">
+      <section className="relative overflow-hidden border-b">
+        <div className="absolute inset-0">
+          <FallingPattern
+            color="#bd93f9"
+            backgroundColor="var(--background)"
+          />
+        </div>
+        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
           <h1 className="text-4xl font-bold">Yugank Rathore</h1>
           <p className="mt-2 text-muted">3rd year CS · building things that actually work</p>
         </div>
