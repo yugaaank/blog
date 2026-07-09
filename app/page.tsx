@@ -14,14 +14,14 @@ export default function Home() {
           <Link href="/blog" className="border-r p-8 py-16 transition hover:bg-surface">
             <h2 className="font-bold text-accent">01</h2>
             <p className="mt-2 text-sm text-muted">Blog</p>
-            <span className="mt-4 inline-block rounded border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
+            <span className="mt-4 inline-block border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
               View Blog
             </span>
           </Link>
           <Link href="/projects" className="p-8 py-16 transition hover:bg-surface">
             <h2 className="font-bold text-accent">02</h2>
             <p className="mt-2 text-sm text-muted">Projects</p>
-            <span className="mt-4 inline-block rounded border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
+            <span className="mt-4 inline-block border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
               View Projects
             </span>
           </Link>
