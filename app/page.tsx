@@ -2,6 +2,8 @@ import Link from "next/link";
 import { posts } from "@/app/blog/posts";
 import { projects } from "@/app/projects/projects";
 import { FallingPattern } from "@/components/ui/falling-pattern";
+import HeroTitle from "@/app/components/HeroTitle";
+import ScrambledHeading from "@/app/components/ScrambledHeading";
 
 export default function Home() {
   const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
@@ -18,7 +20,7 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
-          <h1 className="text-4xl font-bold">Yugank Rathore</h1>
+          <HeroTitle />
           <p className="mt-2 text-muted">3rd year CS · building things that actually work</p>
         </div>
       </section>
@@ -52,7 +54,7 @@ export default function Home() {
       <div className="h-4 border-b" />
       <section className="border-b">
         <div className="flex flex-col items-center justify-center px-16 py-32">
-          <h2 className="text-2xl font-bold">About Me</h2>
+          <ScrambledHeading as="h2" className="text-2xl font-bold">About Me</ScrambledHeading>
           <p className="mt-4 max-w-lg text-center text-muted">
             I&apos;m a 3rd year Computer Science student who enjoys building things that actually work,
             breaking them, and then fixing them properly. I like projects that feel real, not tutorial leftovers.
@@ -73,7 +75,7 @@ export default function Home() {
       <div className="h-4 border-b" />
       <section className="border-b">
         <div className="flex flex-col items-center justify-center px-16 py-32">
-          <h2 className="text-2xl font-bold">Contact Me</h2>
+          <ScrambledHeading as="h2" className="text-2xl font-bold">Contact Me</ScrambledHeading>
           <p className="mt-4 max-w-lg text-center text-muted">
             Feel free to reach out — I&apos;m always open to interesting conversations.
           </p>
@@ -101,14 +103,6 @@ export default function Home() {
               className="text-accent hover:underline"
             >
               LinkedIn
-            </a>
-            <a
-              href="https://yugank.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              yugank.vercel.app
             </a>
           </div>
         </div>

@@ -37,6 +37,14 @@ export default function Footer() {
             >
               Instagram
             </a>
+            <a
+              href="https://yugank.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted hover:text-accent transition-colors"
+            >
+              Portfolio
+            </a>
           </div>
 
           {/* Fun credits */}

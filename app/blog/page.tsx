@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Post } from "./posts";
 import { posts } from "./posts";
 import { FallingPattern } from "@/components/ui/falling-pattern";
+import ScrambledHeading from "@/app/components/ScrambledHeading";
 
 const now = new Date();
 
@@ -103,7 +104,7 @@ export default function Blog() {
           <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
-          <h1 className="text-4xl font-bold">Blog</h1>
+          <ScrambledHeading as="h1" className="text-4xl font-bold">Blog</ScrambledHeading>
           <p className="mt-2 text-muted">All posts</p>
         </div>
       </section>

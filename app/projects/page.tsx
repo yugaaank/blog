@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { projects } from "./projects";
 import { FallingPattern } from "@/components/ui/falling-pattern";
+import ScrambledHeading from "@/app/components/ScrambledHeading";
 
 export default function Projects() {
   return (
@@ -10,7 +11,7 @@ export default function Projects() {
           <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
-          <h1 className="text-4xl font-bold">Projects</h1>
+          <ScrambledHeading as="h1" className="text-4xl font-bold">Projects</ScrambledHeading>
           <p className="mt-2 text-muted">Things I&apos;ve built</p>
         </div>
       </section>

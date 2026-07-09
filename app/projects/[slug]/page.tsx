@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects, type Project } from "../projects";
 import { posts } from "@/app/blog/posts";
+import ScrambledHeading from "@/app/components/ScrambledHeading";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -27,7 +28,7 @@ function ProjectPage({ project }: { project: Project }) {
     <div className="divide-y divide-border">
       {/* Header */}
       <div className="border-b px-8 py-12">
-        <h1 className="text-4xl font-bold">{project.title}</h1>
+        <ScrambledHeading as="h1" className="text-4xl font-bold">{project.title}</ScrambledHeading>
         <p className="mt-2 text-muted">{project.summary}</p>
         <div className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
