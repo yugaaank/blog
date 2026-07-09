@@ -104,29 +104,6 @@ Search should work across:
 
 * blog posts
 * projects
-* tags
-
-### Tags
-
-Tags should connect both projects and blog posts.
-
-Example:
-
-Rust
-
-Shows:
-
-Projects
-
-* Portfolio
-
-* Kernel
-
-Blog Posts
-
-* Ownership Notes
-
-* Async in Rust
 
 ## Content Organization
 
