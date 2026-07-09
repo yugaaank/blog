@@ -1,0 +1,6 @@
+[
+  {
+    "label": "dev start",
+    "command": "clear && bun dev",
+  },
+]
