@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "optional" });
 
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jetbrains.className} bg-bg text-fg`}>
+    <html lang="en" className={jetbrains.className}>
       <body className="flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-1 px-[20%] flex">
-          <div className="border-x flex-1">{children}</div>
+        <main className="relative flex-1 px-[20%] flex">
+          <DotPattern color="#555" spacing={24} dotSize={1} absolute />
+          <div className="relative border-x flex-1 bg-bg z-10">{children}</div>
         </main>
         <Footer />
       </body>
