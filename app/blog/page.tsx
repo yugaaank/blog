@@ -73,6 +73,10 @@ function getGroupKey(iso: string): { key: string; label: string; order: number }
   };
 }
 
+const TREE_FIRST = 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border';
+const TREE_MIDDLE = 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
+const TREE_LAST = 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border';
+
 export default function Blog() {
   const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -128,16 +132,16 @@ export default function Blog() {
               ) : section.posts.map((post, pi) => {
                 const first = pi === 0;
                 const last = pi === section.posts.length - 1;
-                const after = first
-                  ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border'
+                const treeClass = first
+                  ? 'after:absolute after:left-0 after:top-1/2 after:bottom-0 after:w-px after:bg-border after:content-[""]'
                   : last
-                  ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border'
-                  : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border';
+                  ? 'after:absolute after:left-0 after:top-0 after:h-1/2 after:w-px after:bg-border after:content-[""]'
+                  : 'after:absolute after:left-0 after:top-0 after:bottom-0 after:w-px after:bg-border after:content-[""]';
                 return (
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className={`relative flex items-center h-10 group ${after}`}
+                    className={`relative flex items-center h-12 group ${treeClass}`}
                   >
                     <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
                     <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
