@@ -27,26 +27,26 @@ export default function Home() {
       <div className="h-4 border-b" />
       <section className="grid grid-cols-1 md:grid-cols-2 border-b">
         <Link href="/blog" className="flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r p-6 py-12 md:p-8 md:py-16 transition hover:bg-surface">
-          <h2 className="font-bold text-accent">01</h2>
-          <p className="mt-2 text-sm text-muted">Blog · {posts.length} posts</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-accent">01</h2>
+          <p className="mt-2 text-base md:text-lg text-fg">Blog · {posts.length} posts</p>
           {latestPost && (
-            <p className="mt-4 text-xs text-muted/60">
+            <p className="mt-4 text-xs text-muted">
               Latest: {latestPost.title} · {latestPost.date}
             </p>
           )}
-          <span className="mt-6 inline-block border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
+          <span className="mt-6 inline-block border border-accent px-6 py-2 text-sm font-medium text-accent transition hover:bg-accent hover:text-bg">
             View Blog
           </span>
         </Link>
         <Link href="/projects" className="flex flex-col items-center justify-center text-center p-6 py-12 md:p-8 md:py-16 transition hover:bg-surface">
-          <h2 className="font-bold text-accent">02</h2>
-          <p className="mt-2 text-sm text-muted">Projects · {projects.length} project{projects.length !== 1 ? 's' : ''}</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-accent">02</h2>
+          <p className="mt-2 text-base md:text-lg text-fg">Projects · {projects.length} project{projects.length !== 1 ? 's' : ''}</p>
           {latestProject && (
-            <p className="mt-4 text-xs text-muted/60">
+            <p className="mt-4 text-xs text-muted">
               Latest: {latestProject.title}
             </p>
           )}
-          <span className="mt-6 inline-block border border-accent px-4 py-1.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-bg">
+          <span className="mt-6 inline-block border border-accent px-6 py-2 text-sm font-medium text-accent transition hover:bg-accent hover:text-bg">
             View Projects
           </span>
         </Link>
