@@ -77,25 +77,25 @@ function ProjectPage({ project }: { project: Project }) {
         </div>
       </Section>
 
-      {/* Challenges */}
-      <Section title="Challenges">
+      {/* Features */}
+      <Section title="Features">
         <ul className="space-y-3">
-          {project.challenges.map((c, i) => (
-            <li key={i} className="flex gap-3 text-sm text-muted">
-              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red/50" />
-              {c}
+          {project.features.map((l, i) => (
+              <li key={i} className="flex gap-3 leading-relaxed text-fg font-geist">
+              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-green/50" />
+              {l}
             </li>
           ))}
         </ul>
       </Section>
 
-      {/* Features */}
-      <Section title="Features">
+      {/* Challenges */}
+      <Section title="Challenges">
         <ul className="space-y-3">
-          {project.features.map((l, i) => (
-            <li key={i} className="flex gap-3 text-sm text-muted">
-              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-green/50" />
-              {l}
+          {project.challenges.map((c, i) => (
+              <li key={i} className="flex gap-3 leading-relaxed text-fg font-geist">
+              <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red/50" />
+              {c}
             </li>
           ))}
         </ul>
@@ -105,7 +105,7 @@ function ProjectPage({ project }: { project: Project }) {
       <Section title="Future Improvements">
         <ul className="space-y-2">
           {project.future.map((f, i) => (
-            <li key={i} className="text-sm text-muted">
+            <li key={i} className="leading-relaxed text-fg font-geist">
               → {f}
             </li>
           ))}

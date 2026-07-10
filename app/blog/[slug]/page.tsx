@@ -31,8 +31,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     p.relatedPosts?.includes(slug),
   );
 
+  const date = new Date(post.date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
-    <div className="px-8">
+    <div className="px-8 py-12">
+      <p className="text-center text-sm text-muted mb-8">{date}</p>
       {content}
       {relatedProjects.length > 0 && (
         <div className="mt-8 border">

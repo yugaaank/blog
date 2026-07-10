@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Geist } from "next/font/google";
+import { JetBrains_Mono, Geist, Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -7,6 +7,7 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "optional" });
 const geist = Geist({ subsets: ["latin"], display: "optional" });
+const merriweather = Merriweather({ subsets: ["latin"], display: "optional" });
 
 export const metadata: Metadata = {
   title: "Yugank Rathore",

@@ -105,7 +105,7 @@ export default function Blog() {
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
           <ScrambledHeading as="h1" className="text-4xl font-bold">Blog</ScrambledHeading>
-          <p className="mt-2 text-muted">All posts</p>
+          <p className="mt-2 text-fg">All posts</p>
         </div>
       </section>
       <div className="h-4 border-b border-border" />

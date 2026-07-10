@@ -3,24 +3,24 @@ import type { MDXComponents } from "mdx/types";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="mb-4 text-3xl font-bold text-fg font-geist">{children}</h1>
+      <h1 className="mb-8 text-4xl font-bold text-fg font-editorial text-center">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="mb-3 mt-8 text-2xl font-bold text-fg font-geist">{children}</h2>
+      <h2 className="mb-6 mt-12 text-3xl font-bold text-fg font-editorial text-center">{children}</h2>
     ),
     p: ({ children }) => (
-      <p className="mb-4 leading-relaxed text-fg font-geist">{children}</p>
+      <p className="mb-8 leading-[2] text-xl text-fg font-editorial">{children}</p>
     ),
     a: ({ href, children }) => (
       <a href={href} className="text-accent underline hover:opacity-80">
         {children}
       </a>
     ),
-    ul: ({ children }) => <ul className="mb-4 list-disc pl-6 text-fg font-geist">{children}</ul>,
-    ol: ({ children }) => <ol className="mb-4 list-decimal pl-6 text-fg font-geist">{children}</ol>,
-    li: ({ children }) => <li className="mb-1 font-geist">{children}</li>,
+    ul: ({ children }) => <ul className="mb-8 list-disc pl-6 space-y-3 text-xl text-fg font-editorial">{children}</ul>,
+    ol: ({ children }) => <ol className="mb-8 list-decimal pl-6 space-y-3 text-xl text-fg font-editorial">{children}</ol>,
+    li: ({ children }) => <li className="font-editorial">{children}</li>,
     blockquote: ({ children }) => (
-      <blockquote className="mb-4 border-l-4 border-accent pl-4 italic text-muted font-geist">
+      <blockquote className="mb-8 border-l-4 border-accent pl-8 py-3 italic text-muted font-editorial">
         {children}
       </blockquote>
     ),
@@ -30,12 +30,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </code>
     ),
     pre: ({ children }) => (
-      <pre className="mb-4 overflow-x-auto border bg-surface p-4 text-sm">
+      <pre className="mb-8 overflow-x-auto border bg-surface p-4 text-sm">
         {children}
       </pre>
     ),
     table: ({ children }) => (
-      <div className="mb-4 overflow-x-auto">
+      <div className="mb-8 overflow-x-auto">
         <table className="w-full border-collapse text-left text-sm">{children}</table>
       </div>
     ),
@@ -44,7 +44,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     td: ({ children }) => <td className="border-b border-border px-4 py-2 text-fg">{children}</td>,
     strong: ({ children }) => <strong className="font-bold text-fg">{children}</strong>,
-    em: ({ children }) => <em className="text-muted">{children}</em>,
+    em: ({ children }) => <em className="text-muted block text-center">{children}</em>,
     ...components,
   };
 }
