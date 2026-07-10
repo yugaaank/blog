@@ -28,7 +28,7 @@ function ProjectPage({ project }: { project: Project }) {
     <div className="divide-y divide-border">
       {/* Header */}
       <div className="border-b px-8 py-12">
-        <ScrambledHeading as="h1" className="text-4xl font-bold">{project.title}</ScrambledHeading>
+        <ScrambledHeading as="h1" className="text-4xl font-bold font-geist">{project.title}</ScrambledHeading>
         <p className="mt-2 text-muted">{project.summary}</p>
         <div className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
@@ -39,7 +39,7 @@ function ProjectPage({ project }: { project: Project }) {
 
       {/* Description */}
       <Section title="Overview">
-        <p className="leading-relaxed text-fg">{project.description}</p>
+        <p className="leading-relaxed text-fg font-geist">{project.description}</p>
       </Section>
 
       {/* Tech Stack */}
@@ -69,7 +69,7 @@ function ProjectPage({ project }: { project: Project }) {
               </div>
               <div className="pb-4">
                 <span className="text-xs text-muted">{entry.date}</span>
-                <h3 className="font-bold text-accent">{entry.phase}</h3>
+                <h3 className="font-bold text-accent font-geist">{entry.phase}</h3>
                 <p className="mt-1 text-sm text-muted">{entry.desc}</p>
               </div>
             </div>

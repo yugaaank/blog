@@ -3,24 +3,24 @@ import type { MDXComponents } from "mdx/types";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="mb-4 text-3xl font-bold text-fg">{children}</h1>
+      <h1 className="mb-4 text-3xl font-bold text-fg font-geist">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="mb-3 mt-8 text-2xl font-bold text-fg">{children}</h2>
+      <h2 className="mb-3 mt-8 text-2xl font-bold text-fg font-geist">{children}</h2>
     ),
     p: ({ children }) => (
-      <p className="mb-4 leading-relaxed text-fg">{children}</p>
+      <p className="mb-4 leading-relaxed text-fg font-geist">{children}</p>
     ),
     a: ({ href, children }) => (
       <a href={href} className="text-accent underline hover:opacity-80">
         {children}
       </a>
     ),
-    ul: ({ children }) => <ul className="mb-4 list-disc pl-6 text-fg">{children}</ul>,
-    ol: ({ children }) => <ol className="mb-4 list-decimal pl-6 text-fg">{children}</ol>,
-    li: ({ children }) => <li className="mb-1">{children}</li>,
+    ul: ({ children }) => <ul className="mb-4 list-disc pl-6 text-fg font-geist">{children}</ul>,
+    ol: ({ children }) => <ol className="mb-4 list-decimal pl-6 text-fg font-geist">{children}</ol>,
+    li: ({ children }) => <li className="mb-1 font-geist">{children}</li>,
     blockquote: ({ children }) => (
-      <blockquote className="mb-4 border-l-4 border-accent pl-4 italic text-muted">
+      <blockquote className="mb-4 border-l-4 border-accent pl-4 italic text-muted font-geist">
         {children}
       </blockquote>
     ),

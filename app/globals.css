@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-geist: 'Geist', sans-serif;
   --color-bg: #121316;
   --color-fg: #f7f7f2;
   --color-muted: #7a7a7a;

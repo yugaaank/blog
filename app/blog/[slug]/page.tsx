@@ -36,7 +36,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       {content}
       {relatedProjects.length > 0 && (
         <div className="mt-8 border">
-          <h2 className="border-b px-6 py-3 text-sm font-bold tracking-wider text-accent">
+          <h2 className="border-b px-6 py-3 text-sm font-bold tracking-wider text-accent font-geist">
             Related Projects
           </h2>
           <div className="divide-y divide-border">
