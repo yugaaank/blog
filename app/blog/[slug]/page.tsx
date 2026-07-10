@@ -38,12 +38,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   });
 
   return (
-    <div className="px-8 py-12">
-      <p className="text-center text-sm text-muted mb-8">{date}</p>
+    <div className="px-4 md:px-8 py-8 md:py-12">
+      <p className="text-center text-sm text-muted mb-6 md:mb-8">{date}</p>
       {content}
       {relatedProjects.length > 0 && (
         <div className="mt-8 border">
-          <h2 className="border-b px-6 py-3 text-sm font-bold tracking-wider text-accent font-geist">
+          <h2 className="border-b px-4 md:px-6 py-3 text-sm font-bold tracking-wider text-accent font-geist">
             Related Projects
           </h2>
           <div className="divide-y divide-border">
@@ -51,10 +51,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="flex items-center justify-between gap-4 px-6 py-4 transition hover:bg-surface"
+                className="flex items-center justify-between gap-4 px-4 md:px-6 py-3 md:py-4 transition hover:bg-surface"
               >
                 <span className="font-bold text-accent">{project.title}</span>
-                <span className="text-xs text-muted">{project.summary}</span>
+                <span className="text-xs text-muted hidden sm:inline">{project.summary}</span>
               </Link>
             ))}
           </div>

@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="border-t bg-bg py-12">
-      <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-center">
-        <div className="flex items-center gap-6 text-sm">
+    <footer className="border-t bg-bg py-8 md:py-12">
+      <div className="max-w-4xl mx-auto flex flex-col items-center gap-4 md:gap-6 text-center px-4">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
           <a href="https://github.com/yugaaank" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
             GitHub
           </a>

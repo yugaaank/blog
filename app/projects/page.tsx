@@ -10,9 +10,9 @@ export default function Projects() {
         <div className="absolute inset-0">
           <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
-          <ScrambledHeading as="h1" className="text-4xl font-bold">Projects</ScrambledHeading>
-          <p className="mt-2 text-muted">Things I&apos;ve built</p>
+        <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:px-16 md:py-32">
+          <ScrambledHeading as="h1" className="text-3xl md:text-4xl font-bold">Projects</ScrambledHeading>
+          <p className="mt-2 text-muted text-sm md:text-base">Things I&apos;ve built</p>
         </div>
       </section>
       <div className="h-4 border-b border-border" />
@@ -21,7 +21,7 @@ export default function Projects() {
           <Link
             key={project.slug}
             href={`/projects/${project.slug}`}
-            className="flex items-center justify-between gap-4 px-8 py-6 transition hover:bg-surface"
+            className="flex items-center justify-between gap-4 px-4 md:px-8 py-4 md:py-6 transition hover:bg-surface"
           >
             <div>
               <h2 className="font-bold text-accent">{project.title}</h2>

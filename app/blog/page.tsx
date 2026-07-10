@@ -103,31 +103,31 @@ export default function Blog() {
         <div className="absolute inset-0">
           <FallingPattern color="#bd93f9" backgroundColor="var(--background)" />
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
-          <ScrambledHeading as="h1" className="text-4xl font-bold">Blog</ScrambledHeading>
-          <p className="mt-2 text-fg">All posts</p>
+        <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:px-16 md:py-32">
+          <ScrambledHeading as="h1" className="text-3xl md:text-4xl font-bold">Blog</ScrambledHeading>
+          <p className="mt-2 text-fg text-sm md:text-base">All posts</p>
         </div>
       </section>
       <div className="h-4 border-b border-border" />
       <div className="border-b">
         {grouped.map((section, si) => (
           <div key={section.key} className={si < grouped.length - 1 ? 'border-b border-border' : ''}>
-            <div className="flex items-center justify-center px-8 py-3 bg-surface/50">
-              <span className="text-lg font-bold tracking-wider text-green">{section.label}</span>
+            <div className="flex items-center justify-center px-4 md:px-8 py-3 bg-surface/50">
+              <span className="text-base md:text-lg font-bold tracking-wider text-green">{section.label}</span>
             </div>
-            <div className="pl-8 pb-4">
+            <div className="pl-4 md:pl-8 pb-4">
               {section.posts.length === 1 ? (
                 <Link
                   key={section.posts[0].slug}
                   href={`/blog/${section.posts[0].slug}`}
                   className="flex items-center h-10 group"
                 >
-                  <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                  <span className="ml-2 md:ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[80px] md:w-[95px]">
                     {formatDate(section.posts[0].date)}
                   </span>
-                  <div className="min-w-0">
+                  <div className="min-w-0 ml-3">
                     <span className="font-bold text-accent group-hover:underline">{section.posts[0].title}</span>
-                    <span className="ml-2 text-xs text-muted">{section.posts[0].description}</span>
+                    <span className="ml-2 text-xs text-muted hidden sm:inline">{section.posts[0].description}</span>
                   </div>
                 </Link>
               ) : section.posts.map((post, pi) => {
@@ -145,12 +145,12 @@ export default function Blog() {
                     className={`relative flex items-center h-12 group ${treeClass}`}
                   >
                     <div className="absolute left-0 top-1/2 w-3 h-px bg-border" />
-                    <span className="ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[95px]">
+                    <span className="ml-2 md:ml-4 shrink-0 whitespace-nowrap text-xs text-muted w-[80px] md:w-[95px]">
                       {formatDate(post.date)}
                     </span>
-                    <div className="min-w-0">
+                    <div className="min-w-0 ml-3">
                       <span className="font-bold text-accent group-hover:underline">{post.title}</span>
-                      <span className="ml-2 text-xs text-muted">{post.description}</span>
+                      <span className="ml-2 text-xs text-muted hidden sm:inline">{post.description}</span>
                     </div>
                   </Link>
                 );

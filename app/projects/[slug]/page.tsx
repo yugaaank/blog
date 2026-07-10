@@ -11,10 +11,10 @@ export function generateStaticParams() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="border-b">
-      <h2 className="border-b px-8 py-3 text-sm font-bold tracking-wider text-accent">
+      <h2 className="border-b px-4 md:px-8 py-3 text-sm font-bold tracking-wider text-accent">
         {title}
       </h2>
-      <div className="px-8 py-6">{children}</div>
+      <div className="px-4 md:px-8 py-4 md:py-6">{children}</div>
     </div>
   );
 }
@@ -27,8 +27,8 @@ function ProjectPage({ project }: { project: Project }) {
   return (
     <div className="divide-y divide-border">
       {/* Header */}
-      <div className="border-b px-8 py-12">
-        <ScrambledHeading as="h1" className="text-4xl font-bold font-geist">{project.title}</ScrambledHeading>
+      <div className="border-b px-4 md:px-8 py-8 md:py-12">
+        <ScrambledHeading as="h1" className="text-3xl md:text-4xl font-bold font-geist">{project.title}</ScrambledHeading>
         <p className="mt-2 text-muted">{project.summary}</p>
         <div className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
@@ -135,7 +135,7 @@ function ProjectPage({ project }: { project: Project }) {
       )}
 
       {/* Links */}
-      <div className="flex gap-4 px-8 py-6">
+      <div className="flex flex-wrap gap-4 px-4 md:px-8 py-4 md:py-6">
         {project.github && (
           <a
             href={project.github}

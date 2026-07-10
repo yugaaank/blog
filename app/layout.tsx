@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={jetbrains.className}>
       <body className="flex flex-col min-h-screen">
         <Navbar />
-        <main className="relative flex-1 px-[20%] flex">
+        <main className="relative flex-1 px-4 md:px-[20%] flex">
           <DotPattern color="#444" spacing={16} dotSize={1} absolute staggered layers={3} />
           <div className="relative border-x flex-1 bg-bg z-10">{children}</div>
         </main>

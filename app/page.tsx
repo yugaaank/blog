@@ -19,14 +19,14 @@ export default function Home() {
             backgroundColor="var(--background)"
           />
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center px-16 py-32">
+        <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:px-16 md:py-32">
           <HeroTitle />
-          <p className="mt-2 text-muted">3rd year CS · building things that actually work</p>
+          <p className="mt-2 text-muted text-sm md:text-base text-center">3rd year CS · building things that actually work</p>
         </div>
       </section>
       <div className="h-4 border-b" />
-      <section className="grid grid-cols-2 border-b">
-        <Link href="/blog" className="flex flex-col items-center justify-center text-center border-r p-8 py-16 transition hover:bg-surface">
+      <section className="grid grid-cols-1 md:grid-cols-2 border-b">
+        <Link href="/blog" className="flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r p-6 py-12 md:p-8 md:py-16 transition hover:bg-surface">
           <h2 className="font-bold text-accent">01</h2>
           <p className="mt-2 text-sm text-muted">Blog · {posts.length} posts</p>
           {latestPost && (
@@ -38,7 +38,7 @@ export default function Home() {
             View Blog
           </span>
         </Link>
-        <Link href="/projects" className="flex flex-col items-center justify-center text-center p-8 py-16 transition hover:bg-surface">
+        <Link href="/projects" className="flex flex-col items-center justify-center text-center p-6 py-12 md:p-8 md:py-16 transition hover:bg-surface">
           <h2 className="font-bold text-accent">02</h2>
           <p className="mt-2 text-sm text-muted">Projects · {projects.length} project{projects.length !== 1 ? 's' : ''}</p>
           {latestProject && (
@@ -53,9 +53,9 @@ export default function Home() {
       </section>
       <div className="h-4 border-b" />
       <section className="border-b">
-        <div className="flex flex-col items-center justify-center px-16 py-32">
+        <div className="flex flex-col items-center justify-center px-8 py-16 md:px-16 md:py-32">
           <ScrambledHeading as="h2" className="text-2xl font-bold">About-Me</ScrambledHeading>
-          <p className="mt-4 max-w-lg text-center text-muted">
+          <p className="mt-4 max-w-lg text-center text-muted text-sm md:text-base">
             I&apos;m a 3rd year Computer Science student who enjoys building things that actually work,
             breaking them, and then fixing them properly. I like projects that feel real, not tutorial leftovers.
           </p>
@@ -74,9 +74,9 @@ export default function Home() {
       </section>
       <div className="h-4 border-b" />
       <section className="border-b">
-        <div className="flex flex-col items-center justify-center px-16 py-32">
+        <div className="flex flex-col items-center justify-center px-8 py-16 md:px-16 md:py-32">
           <ScrambledHeading as="h2" className="text-2xl font-bold">Contact-Me</ScrambledHeading>
-          <p className="mt-4 max-w-lg text-center text-muted">
+          <p className="mt-4 max-w-lg text-center text-muted text-sm md:text-base">
             Feel free to reach out — I&apos;m always open to interesting conversations.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 text-sm">
