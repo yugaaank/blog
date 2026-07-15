@@ -1,0 +1,35 @@
+# Assembly language is..not for beginners
+
+> Why it will take me little more time to learn OS dev
+
+I recently started learning OS development using online help and a guide called - "Writing a Simple Operating System from Scratch" - by Nick Blundell
+
+Now I don't know whether it is a good read to learn OS dev or not, im new to this area so no critisim here. Even before I reached the 3rd chapter I realised that this might not be enough and I need some pre requisties for this like "Assembly" and CPU registers. This wasn't any issue as I knew that OS dev is a complex branch but still I wasn't as nearly as prepared for the Roller Coaster of issues I found myself into.
+
+I just completed working on how to create a boot sector and run using qemu and a new issue came, BIOS can only run the boot sector iteslf and no other program, as the boot sector is only 512 bytes you can imaine that it's impossible to write the whole kernel here. So I had to learn how to read other sectors from disk from which I can load and start the kernel.
+
+Now normally the process of reading sectors and loading the sector in RAM looks like this:-
+
+```text
+Bootloader Starts
+      ↓
+Ask BIOS to read Sector 1
+      ↓
+Copy Sector 1 into RAM
+      ↓
+Ask BIOS to read Sector 2
+      ↓
+Copy Sector 2 into RAM
+      ↓
+Repeat
+      ↓
+Jump to the Kernel
+```
+
+So here comes the issue of how to read Sector 2. What normally happens is we fix values of a few fixed registers that acts as data on what, how and where to read sector. Then a BIOS interupt is called `int 0x13` whose job is to get details of the sector to read and move the sector to RAM.
+
+Now you might think ok pretty straight forward what might be the issue with it, the issue is that you have to store the Destination of sector in RAM in one of the register in segment:offset pair in the registers `ES:BX` and to store data in `ES` register you have to copy value from `AX` register to this register and `AX` is already in use to set the function number and number of sectors to read.
+
+This creates an issue of data overwriting and I couldn't figure out for hours on how to fix this or another way around this problem.
+
+> This simple problem got me stuck on how to read other sectors from the disk which is one of the basics that any OS dev need to already figure out. This made me realise that learning assembly and trying to figure out registers and memory in it is not an easy task and it will take me months to complete this project.
