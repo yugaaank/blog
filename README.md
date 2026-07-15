@@ -1,6 +1,6 @@
 # ygnk.dev
 
-Personal portfolio, technical blog, and digital garden built with Next.js 16.
+Personal technical blog built with Next.js 16.
 
 ## Tech Stack
 
@@ -13,8 +13,8 @@ Personal portfolio, technical blog, and digital garden built with Next.js 16.
 
 ## Sections
 
-- **Blog** — 21 posts covering systems programming, Rust, Linux, and web dev
-- **Projects** — Portfolio pieces with tech stacks, timelines, and related posts
+- **Blog** — Posts covering systems programming, Rust, Linux, and web dev
+- **Projects** — Technical deep-dives with tech stacks, timelines, and related posts
 - **About** — Skills and contact links
 
 ## Getting Started
