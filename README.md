@@ -1,30 +1,25 @@
 # ygnk.dev
 
-Personal technical blog built with Next.js 16.
+Personal blog built with Next.js 16. Posts about Rust, C, Linux, and web dev.
 
-## Tech Stack
+## Tech
 
-- **Framework:** Next.js 16 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **Content:** MDX
-- **Animations:** Framer Motion, GSAP
-- **Fonts:** JetBrains Mono
+Next.js 16 (App Router), TypeScript, Tailwind CSS v4, MDX, Framer Motion, GSAP. JetBrains Mono for code.
 
 ## Sections
 
-- **Blog** — Posts covering systems programming, Rust, Linux, and web dev
-- **Projects** — Technical deep-dives with tech stacks, timelines, and related posts
-- **About** — Skills and contact links
+- **Blog** -- posts on systems programming, Rust, Linux, web
+- **Projects** -- technical deep-dives with tech stacks and timelines
+- **About** -- skills and contact
 
-## Getting Started
+## Local dev
 
 ```bash
 bun install
 bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open `http://localhost:3000`.
 
 ## Build
 
