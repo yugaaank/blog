@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Geist, Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar";
@@ -6,12 +6,19 @@ import Footer from "@/app/components/Footer";
 import AnimatedFavicon from "@/app/components/AnimatedFavicon";
 import { DotPattern } from "@/components/ui/dot-pattern";
 
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "optional" });
-const geist = Geist({ subsets: ["latin"], display: "optional" });
-const merriweather = Merriweather({ subsets: ["latin"], display: "optional" });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], display: "swap" });
+const geist = Geist({ subsets: ["latin"], display: "swap" });
+const merriweather = Merriweather({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "Yugank Rathore",
+  icons: {
+    icon: "/favicon.svg",
+  },
+};
+
+export const viewport = {
+  themeColor: "#111111",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
