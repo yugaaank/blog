@@ -1,0 +1,76 @@
+# I built shy — a floating window manager for Hyprland
+
+> Making floating windows disappear when you don't need them
+
+I've been using Hyprland for a while now and I really like the workflow. Most of the time I use tiled windows, but there are still things that work better as floating windows — file pickers, small utility windows, localsend, calculator etc.
+
+The issue is that once a few of them are open, they just stay on the screen. Switching back to a tiled window doesn't really make them go away, so after some time my workspace starts looking messy.
+
+I wanted floating windows to behave a bit differently. When I'm working in a tiled window, I don't want to see them. But I also don't want to close them and open them again later.
+
+So I built shy.
+
+shy hides floating windows below the screen whenever I focus a tiled window. When I focus a floating window again, it puts it back exactly where it was.
+
+```text
+Focus a tiled window
+      ↓
+Move floating windows below the screen
+      ↓
+Focus a floating window
+      ↓
+Restore it to its old position
+```
+
+The window is still open the whole time, it is just not in the way.
+
+## How it works
+
+Hyprland exposes an IPC socket which sends events when something changes. shy connects to it and listens for window events like `activewindow`, `openwindow`, `closewindow` and `changefloating`.
+
+When the focused window is tiled, shy gets the position of every floating window, stores it and moves the window below its monitor. When a floating window gets focused, shy restores the stored position.
+
+One thing I had to handle was hover focus. With some Hyprland configs, moving the mouse over a floating window can focus it. I didn't want that to suddenly restore all the hidden windows, so shy can ignore focus changes caused by hovering. It only reacts to focus changes from the keyboard or a window switcher.
+
+It also supports multiple monitors and since it only reacts to events, it doesn't need to keep polling for windows in the background.
+
+## Setup
+
+Install from source:
+
+```bash
+git clone https://github.com/yugaaank/shy.git
+cd shy
+cargo install --path .
+```
+
+Then start it with Hyprland.
+
+For a Lua config:
+
+```lua
+hl.on("hyprland.start", function()
+    hl.exec_cmd("~/.cargo/bin/shy")
+end)
+```
+
+Or with hyprlang:
+
+```text
+exec-once = ~/.cargo/bin/shy
+```
+
+The config file is at `~/.config/shy/config.toml`:
+
+```toml
+hide_offset = 300
+debug = false
+ignore = ["rofi", "waybar", "walker"]
+ignore_hover = true
+```
+
+`hide_offset` controls how far below the monitor a window is moved. `ignore` is useful for window classes that should never be hidden.
+
+It is a small thing, but it makes mixing tiled and floating windows much less distracting for me.
+
+The project is here: [github.com/yugaaank/shy](https://github.com/yugaaank/shy)

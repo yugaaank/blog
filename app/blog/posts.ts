@@ -8,6 +8,13 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "i-built-shy",
+    title: "I built shy — a floating window manager for Hyprland",
+    description: "Making floating windows disappear when you don't need them",
+    date: "2026-07-24",
+    relatedProjects: ["shy"],
+  },
+  {
     slug: "asm-is-hard",
     title: "Assembly language is..not for beginners",
     description: "Why it will take me little more time to learn OS dev",
