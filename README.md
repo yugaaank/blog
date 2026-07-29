@@ -26,9 +26,7 @@ A personal website serving as a technical blog, project documentation site, and 
 
 ## Overview
 
-ygnk.dev is a personal website built as a Next.js 16 App Router application. It hosts a technical blog, a projects showcase, and an about/contact page. The site uses MDX for blog authoring, Framer Motion and GSAP for animations, and Tailwind CSS v4 for styling.
-
-The project follows a content-driven architecture where blog posts and project data are defined as typed TypeScript arrays, rendered as static pages at build time, and supplemented by dynamic infrastructure routes (RSS feed, sitemap).
+ygnk.dev is a personal project I threw together — basically a Next.js 16 App Router app that hosts a blog, a projects page, and an about/contact section. The blog is written in MDX and it uses Framer Motion + GSAP for some light animations, Tailwind CSS v4 for styling. The whole thing is kind of a experiment in keeping things simple. It followts a content-driven setup — blog posts and project data lives in TS arrays, everything renders as static pages at build time, and there's an RSS feed + sitemap that kinda just works.
 
 ---
 
