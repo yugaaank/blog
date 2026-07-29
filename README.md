@@ -1,411 +1,284 @@
 # ygnk.dev — Personal Blog & Portfolio
 
-A personal website for a blog, a projects page, and an about section. Built with the Next.js 16 App Router. This site is deployed on Vercel. The whole thing runs on Bun as the package manager and bundler runtime.
-
----
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Technology Stack](#technology-stack)
-4. [Architecture](#architecture)
-5. [Project Structure](#project-structure)
-6. [Content Model](#content-model)
-7. [UI Components](#ui-components)
-8. [Configuration](#configuration)
-9. [Development](#development)
-10. [Build & Deployment](#build--deployment)
-11. [Adding a New Blog Post](#adding-a-new-blog-post)
-12. [Adding a New Project](#adding-a-new-project)
-13. [Design System](#design-system)
-14. [Infrastructure](#infrastructure)
-15. [License](#license)
-
----
-
-## Overview
-
-ygnk.dev is a personal project I put together. Its basically a Next.js 16 App Router app. It hosts a technical blog, a projects showcase, and an about/contact page. The blog posts are written in MDX. Framer Motion and GSAP handle the animations. Tailwind CSS v4 does the styling.
-
-The project followts a content-driven architecture. Blog posts are defined as typed TypeScript arrays. Project data is also defined as typed TypeScript arrays. Everything renders as static pages at build time. There is also an RSS feed and a sitemap that work out of the box. The RSS feed is at `/feed.xml`. The sitemap is at `/sitemap.xml`.
-
-So basically its a static site with dynamic-ish features. The sitemap updates on rebuild. The feed updates on rebuild too. Nothing runs at request time for content pages.
-
----
+This project is a personal website. It serves three purposes: a technical blog, a projects showcase, and an about/contact page. The site uses Next.js 16 App Router. Deploy target is Vercel. The package manager is Bun.
 
 ## Features
 
-- **Blog** — MDX-based blog with syntax-highlighted code blocks, table support, and structured metadata.
-- **Projects** — Project detail pages with overview, tech stack, timeline, features, challenges, future plans, and links.
-- **Blog-Project Linking** — Blog posts can reference related projects. Project pages show linked posts automatically.
-- **RSS Feed** — Auto-generated XML feed at `/feed.xml`. It lists all blog posts sorted by date.
-- **Sitemap** — Auto-generated sitemap at `/sitemap.xml` with change frequencies and priorities.
-- **Animations** — GSAP ScrambleText for on-hover text scrambling. Framer Motion for animated background patterns.
-- **Dark Theme** — Dracula-inspired color palette with structural border-based layout divions.
-- **Responsive Design** — Mobile-first responsive layout using Tailwind CSS breakpoints.
-- **Static Generation** — All pages are statically generated at build time via `generateStaticParams`.
-
----
+- **Blog** — Authors write posts in MDX. Code blocks render with syntax highlighting. Tables render correctly. Each post has a slug, title, description, date, and optional list of related projects.
+- **Projects** — Each project page shows a summary, description, tech stack, timeline, features, challenges, and future plans. Links to GitHub and live demos are included.
+- **Blog-Project Linking** — Blog posts reference related projects by slug. Project pages list linked posts automatically.
+- **RSS Feed** — A route at `/feed.xml` returns an XML feed of all posts sorted by date. The feed includes title, link, description, pubDate, and guid for each item.
+- **Sitemap** — A route at `/sitemap.xml` returns XML sitemap data. The sitemap lists the homepage, blog page, projects page, and all post and project pages with priorities and change frequencies.
+- **Animations** — GSAP ScrambleText scrambles text on hover. Framer Motion animates background patterns. Dot patterns pulse. All animations are decorative and do not affect usability.
+- **Dark Theme** — The color palette uses dark backgrounds and purple accent colors. The design follows Dracula color conventions.
+- **Responsive Design** — Layout adapts to screen size. Mobile uses single-column layout. Tablet and desktop use wider padding and two-column grids.
+- **Static Generation** — All pages build at compile time. No server-side rendering is used for content pages. Dynamic infrastructure routes (feed, sitemap) generate output at build time.
 
 ## Technology Stack
 
-| Layer | Technology | Version | Purpose |
-|-------|-----------|---------|---------|
-| Framework | Next.js | 16.2.10 | App Router, SSG, routing, metadata |
-| Language | TypeScript | 5.x | Type-safe code |
+| Layer | Tool | Version | Role |
+|-------|------|---------|------|
+| Framework | Next.js | 16.2.10 | Routing, SSG, metadata |
+| Language | TypeScript | 5.x | Type checking |
 | Runtime | React | 19.2.4 | Component rendering |
-| Styling | Tailwind CSS | v4 | Utility-first CSS with `@theme` custom properties |
-| Animations | Framer Motion | ^12 | Background pattern animations |
-| Animations | GSAP + ScrambleText Plugin | ^3.15.0 | Text scrambling on hover |
-| Content | MDX | via `next-mdx-remote` | Blog post authoring with JSX |
-| Fonts | Google Fonts | — | JetBrains Mono (code), Geist (UI), Merriweather (editorial) |
-| Bundler | Bun | — | Package manager and runtime |
+| Styling | Tailwind CSS | v4 | Utility-first CSS |
+| Animations | Framer Motion | ^12 | Background pattern motion |
+| Animations | GSAP | ^3.15.0 | Text scramble effects |
+| Content | MDX | via `next-mdx-remote` | Blog authoring with JSX |
+| Fonts | Google Fonts | — | JetBrains Mono, Geist, Merriweather |
+| Package Manager | Bun | — | Dependency management |
 | Deploy | Vercel | — | Hosting |
-
----
 
 ## Architecture
 
-### Rendering Model
+### Rendering
 
-The application uses Static Site Generation (SSG). All blog and project pages are pre-rendered at build time using `generateStaticParams`. No server-side rendering or client-side data fetching is used for content pages.
+The application uses Static Site Generation (SSG). All content pages pre-render at build time. The function `generateStaticParams` provides the list of pages to generate. Content pages do not fetch data at request time. They read from the file system during build.
 
 ### Content Flow
 
-```
-content/blog/*.mdx    → read at build time via fs.readFileSync
-app/blog/posts.ts     → typed Post[] array (source of truth for post metadata)
-app/blog/[slug]/page.tsx → compiles MDX source with compileMDX, renders HTML
-```
+Blog posts live in two places:
 
-```
-app/projects/projects.ts   → typed Project[] array (source of truth for projects)
-app/projects/[slug]/page.tsx → renders project details, features, timeline, links
-```
+1. `app/blog/posts.ts` — defines the `Post` type and a `posts` array
+2. `content/blog/*.mdx` — contains the post body in MDX format
+
+At build time, each post page reads its `.mdx` file with `fs.readFileSync`. The `compileMDX` function from `next-mdx-remote/rsc` converts MDX source to React elements. The result renders as HTML.
+
+Project data lives in `app/projects/projects.ts` as a typed `Project` array. Project pages read from this array at build time. They do not access the file system for content.
 
 ### Infrastructure Routes
 
+Two dynamic routes provide metadata files:
+
 | Route | File | Output |
 |-------|------|--------|
-| `/feed.xml` | `app/feed.xml/route.ts` | RSS 2.0 XML feed |
+| `/feed.xml` | `app/feed.xml/route.ts` | RSS 2.0 XML |
 | `/sitemap.xml` | `app/sitemap.ts` | XML sitemap |
 
----
+Both routes run at build time and return static text responses with XML content-type headers.
 
 ## Project Structure
 
 ```
 blog/
-├── app/                          # Next.js App Router
-│   ├── layout.tsx                # Root layout (fonts, navbar, footer, dot pattern)
-│   ├── page.tsx                  # Home page
-│   ├── globals.css               # Tailwind @theme, custom CSS variables, animations
-│   ├── mdx-components.tsx         # MDX component overrides (h1-h6, code, blockquote, table, etc.)
-│   ├── sitemap.ts                 # Sitemap generator
+├── app/
+│   ├── layout.tsx          # Root shell: fonts, navbar, footer
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Tailwind theme, CSS variables
+│   ├── mdx-components.tsx  # Overrides for MDX elements
+│   ├── sitemap.ts           # Sitemap route generator
 │   ├── feed.xml/
-│   │   └── route.ts              # RSS feed route
+│   │   └── route.ts        # RSS feed route generator
 │   ├── blog/
-│   │   ├── layout.tsx            # Blog section layout (wraps children in <main>)
-│   │   ├── page.tsx              # Blog list page with time-grouped post listing
-│   │   ├── posts.ts              # Post interface and posts[] data array
+│   │   ├── layout.tsx      # Blog section layout wrapper
+│   │   ├── page.tsx        # Blog list with time-grouped sections
+│   │   ├── posts.ts         # Post type and post data array
 │   │   └── [slug]/
-│   │       └── page.tsx          # Individual blog post page (MDX compilation, related projects)
+│   │       └── page.tsx    # Individual post page
 │   ├── projects/
-│   │   ├── page.tsx              # Projects list page
-│   │   ├── projects.ts           # Project interface and projects[] data array
+│   │   ├── page.tsx         # Projects list page
+│   │   ├── projects.ts      # Project type and project data array
 │   │   └── [slug]/
-│   │       └── page.tsx          # Individual project detail page
-│   └── components/               # Shared app components
-│       ├── Navbar.tsx            # Sticky navigation bar
-│       ├── Footer.tsx            # Site footer with social links
-│       ├── HeroTitle.tsx         # Animated hero heading on home page
-│       ├── ScrambledHeading.tsx  # Heading wrapper with ScrambleText effect
-│       ├── AnimatedFavicon.tsx   # Injects static SVG favicon via <Head>
+│   │       └── page.tsx    # Individual project page
+│   └── components/
+│       ├── Navbar.tsx       # Sticky header with nav links
+│       ├── Footer.tsx       # Site footer with social links
+│       ├── HeroTitle.tsx    # Home page hero heading component
+│       ├── ScrambledHeading.tsx  # Heading with GSAP scramble
+│       ├── AnimatedFavicon.tsx   # Injects SVG favicon
 │       └── ScrambledText/
-│           ├── ScrambledText.jsx   # GSAP ScrambleText effect component
-│           └── ScrambledText.css   # CSS for scrambled text blocks
-├── components/
-│   └── ui/                       # Reusable UI primitives
-│       ├── dot-pattern.tsx       # Radial-gradient dot background pattern
-│       └── falling-pattern.tsx   # Framer Motion animated falling gradient background
-├── content/
-│   └── blog/                     # MDX blog post source files
-│       ├── my-first-post.mdx
-│       ├── asm-is-hard.mdx
-│       └── i-built-shy.mdx
+│           ├── ScrambledText.jsx  # GSAP ScrambleText impl
+│           └── ScrambledText.css   # CSS for scramble blocks
+├── components/ui/
+│   ├── dot-pattern.tsx      # Radial-gradient dot grid
+│   └── falling-pattern.tsx   # Framer Motion falling bg
+├── content/blog/            # Raw MDX source files
+│   ├── my-first-post.mdx
+│   ├── asm-is-hard.mdx
+│   └── i-built-shy.mdx
 ├── lib/
-│   └── utils.ts                  # `cn()` utility for conditional class name joining
+│   └── utils.ts             # `cn()` class name utility
 ├── public/
-│   └── favicon.svg               # Site favicon (SVG)
-├── next.config.ts                # Next.js configuration (currently empty)
-├── tsconfig.json                  # TypeScript configuration
-├── eslint.config.mjs             # ESLint config (Next.js core-web-vitals + TypeScript)
-├── postcss.config.mjs            # PostCSS config (Tailwind CSS v4 plugin)
-├── package.json                  # Dependencies and scripts
-├── VISION.md                     # Long-term project vision and roadmap
-└── README.md                     # This file
+│   └── favicon.svg          # SVG site icon
+├── next.config.ts            # Next.js build config (empty)
+├── tsconfig.json             # TypeScript compiler config
+├── eslint.config.mjs         # ESLint rules and extesions
+├── postcss.config.mjs        # PostCSS plugin config
+├── package.json              # Dependencies and scripts
+└── VISION.md                 # Long-term project vision
 ```
-
----
 
 ## Content Model
 
 ### Post
 
-Each blog post is defined in `app/blog/posts.ts` as a `Post` object:
+The `Post` type has these fields:
 
-```typescript
-interface Post {
-  slug: string;           // URL-safe identifier, maps to content/blog/<slug>.mdx
-  title: string;          // Display title
-  description: string;    // Short description shown on list pages
-  date: string;           // ISO 8601 date (YYYY-MM-DD)
-  relatedProjects?: string[]; // Optional slugs of related Project objects
-}
-```
-
-Blog post source files live in `content/blog/` as `.mdx` files. The slug from `posts.ts` maps to the filename: `<slug>.mdx`. The content is read at request time via `fs.readFileSync` and compiled using `compileMDX` from `next-mdx-remote/rsc`.
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `slug` | `string` | Yes | URL-safe identifier. Maps to `content/blog/<slug>.mdx` |
+| `title` | `string` | Yes | Display title |
+| `description` | `string` | Yes | Short summary shown on list pages |
+| `date` | `string` | Yes | ISO 8601 date in `YYYY-MM-DD` format |
+| `relatedProjects` | `string[]` | No | Slugs of related `Project` entries |
 
 ### Project
 
-Each project is defined in `app/projects/projects.ts` as a `Project` object:
+The `Project` type has these fields:
 
-```typescript
-interface Project {
-  slug: string;           // URL-safe identifier
-  title: string;          // Display title
-  summary: string;        // One-line description
-  description: string;    // Full description
-  techStack: string[];    // Technologies used
-  github?: string;        // GitHub repository URL
-  demo?: string;          // Live demo URL
-  date: string;           // ISO 8601 date
-  tags: string[];         // Category tags
-  relatedPosts?: string[];// Optional slugs of related Post objects
-  challenges: string[];   // Challenges encountered
-  features: string[];     // Implemented features
-  future: string[];       // Planned future improvements
-  timeline: {             // Project timeline entries
-    phase: string;
-    date: string;
-    desc: string;
-  }[];
-}
-```
-
----
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `slug` | `string` | Yes | URL-safe identifier |
+| `title` | `string` | Yes | Display title |
+| `summary` | `string` | Yes | One-line description |
+| `description` | `string` | Yes | Full project description |
+| `techStack` | `string[]` | Yes | List of technologies used |
+| `github` | `string` | No | GitHub repo URL |
+| `demo` | `string` | No | Live demo URL |
+| `date` | `string` | Yes | ISO 8601 date |
+| `tags` | `string[]` | Yes | Category tags |
+| `relatedPosts` | `string[]` | No | Slugs of related `Post` entries |
+| `challenges` | `string[]` | Yes | Problems during development |
+| `features` | `string[]` | Yes | Implemented capabilities |
+| `future` | `string[]` | Yes | Planned improvements |
+| `timeline` | `Array<{phase,date,desc}>` | Yes | Development timeline entries |
 
 ## UI Components
 
 ### Navbar (`app/components/Navbar.tsx`)
 
-Sticky top navigation bar with links to Blog, Projects, and Portfolio. Uses the `ScrambledText` component for animated link text. Separators between links are vertial border lines.
+Renders a sticky header. Contains links to Blog, Projects, and an external Portfolio page. Uses the `ScrambledText` component on all link labels. Vertical border lines separate links.
 
 ### Footer (`app/components/Footer.tsx`)
 
-Site footer with social media links (GitHub, X, LinkedIn, Instagram, Portfolio) and a copyright notice. The year auto-updates via `new Date().getFullYear()`.
+Renders a footer with social links (GitHub, X, LinkedIn, Instagram, Portfolio). The copyright year updates automatically using `new Date().getFullYear()`.
 
 ### HeroTitle (`app/components/HeroTitle.tsx`)
 
-Large hero heading on the home page using the `ScrambledText` component with a higher radius and duration for a more dramatic effect.
+Renders the site name as a large heading on the home page. Wraps text in the `ScrambledText` component with increased radius and duration.
 
 ### ScrambledHeading (`app/components/ScrambledHeading.tsx`)
 
-Reusable heading component that wraps content in the GSAP ScrambleText animation. It accepts an `as` prop to render as any heading level (`h1`–`h6`).
+Renders a heading with the GSAP ScrambleText animation. Accepts an `as` prop to change the HTML tag (`h1`–`h6`).
 
 ### ScrambledText (`app/components/ScrambledText/ScrambledText.jsx`)
 
-Core animation component that uses GSAP's ScrambleTextPlugin. On mouse movement within a radius, each character in the text scrambles and then resolves to its correct value. Props:
-
-- `radius` — distance (px) from the cursor where scrambling activates (default: 100)
-- `duration` — scramble animation duration in seconds (default: 1.2)
-- `speed` — scramble speed (default: 0.5)
-- `scrambleChars` — characters used in the scramble pattern (default: `".:"`)
+Applies GSAP ScrambleTextPlugin to text on the page. On pointer movement, characters within the configured `radius` scramble then resolve. Props: `radius` (default 100), `duration` (default 1.2s), `speed` (default 0.5), `scrambleChars` (default `".:"`).
 
 ### DotPattern (`components/ui/dot-pattern.tsx`)
 
-CSS-based dot background pattern using `radial-gradient`. Supports static, pulsed, and staggered multi-layer varients. Props control color, spacing, dot size, and animation.
+Renders a CSS dot grid using `radial-gradient`. Supports static display, CSS pulse animation, and staggered multi-layer mode. Props control `color`, `backgroundColor`, `spacing`, `dotSize`, `absolute`, `pulse`, `staggered`, and `layers`.
 
 ### FallingPattern (`components/ui/falling-pattern.tsx`)
 
-Framer Motion animated background with layered radial gradients that scroll downward continuously. Creates a "falling" visual effect. Props control color, blur intensity, density, and animation duration.
-
----
+Renders a Framer Motion animated background with scrolling radial gradients. Creates a falling visual effect. Props control `color`, `backgroundColor`, `duration`, `blurIntensity`, and `density`.
 
 ## Configuration
 
 ### Tailwind CSS v4
 
-Tailwind v4 uses the `@theme` directive in `app/globals.css` for custom configuration. There is no separate `tailwind.config.*` file. The theme defines CSS custom properties for all colors and fonts.
-
-| Token | Value | Purpose |
-|-------|-------|---------|
-| `--color-bg` | `#121316` | Page background |
-| `--color-fg` | `#f7f7f2` | Foreground text |
-| `--color-muted` | `#7a7a7a` | Muted/secondary text |
-| `--color-surface` | `#1a1b1f` | Card/surface backgrounds |
-| `--color-border` | `#555` | Border color |
-| `--color-accent` | `#bd93f9` | Accent (purple, Dracula-inspired) |
-| `--color-pink` | `#ff79c6` | Inline code text |
-| `--color-green` | `#96ce98` | Labels, active states |
-| `--color-orange` | `#ffb86c` | Warnings/highlights |
-| `--color-red` | `#ff5555` | Error/challenge indicators |
-| `--color-cyan` | `#8be9fd` | Code syntax |
-| `--color-yellow` | `#f1fa8c` | Highlights |
-
-Fonts configured in `@theme`: Geist (UI), Merriweather (serif/editorial), and JetBrains Mono (code, applied globally on `<html>`).
+No separate config file. Custom theme tokens live in `app/globals.css` in the `@theme` block. The theme defines CSS custom properties for colors and fonts. Tailwind v4 processes these at build time.
 
 ### ESLint
 
-Uses `eslint-config-next` with two extension configs: `core-web-vitals` and `typescript`. It ignores standard Next.js output directories like `.next/` and `out/`. The config is in `eslint.config.mjs`.
+Uses `eslint-config-next` with `core-web-vitals` and `typescript` extension configs. Ignores `.next/`, `out/`, and `build/` directories. Config file: `eslint.config.mjs`.
 
 ### PostCSS
 
-Single plugin only: `@tailwindcss/postcss`. No autoprefixer or additional plugins. The config is in `postcss.config.mjs`.
+Uses `@tailwindcss/postcss` as the only plugin. Config file: `postcss.config.mjs`.
 
 ### TypeScript
 
-Standard Next.js + React 19 types are used. There are no custom strict flags beyond what Next.js provides by default. The config is in `tsconfig.json`.
-
----
+Uses standard Next.js + React 19 type definitions. No custom compiler flags. Config file: `tsconfig.json`.
 
 ## Development
 
 ### Prerequisites
 
-You need [Bun](https://bun.sh) installed. Bun is both the package manager and the runtime for this project. Node.js is not required for development.
+Install Bun from https://bun.sh. Bun handles both package management and the runtime. Node.js is not required.
 
 ### Setup
 
-1. Install dependencies:
-   ```bash
-   bun install
-   ```
-2. Start the development server:
-   ```bash
-   bun run dev
-   ```
-3. Open `http://localhost:3000` in a browser.
+Run these commands in the project root:
 
-### Scripts
+```bash
+bun install
+bun run dev
+```
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| `dev` | `bun run dev` | Start Next.js development server |
-| `build` | `bun run build` | Create production build |
-| `start` | `bun start` | Start production server |
-| `lint` | `eslint` | Run ESLint on the project |
+Then open `http://localhost:3000` in a browser.
 
----
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `bun run dev` | Start development server |
+| `bun run build` | Build production output |
+| `bun start` | Start production server |
+| `eslint` | Run ESLint checks |
 
 ## Build & Deployment
 
-The project uses `bun run build` to create a production build. The output is a `.next` directory containing the rendered pages. By default, Next.js is configured for static export-like behavior. All pages are generated at build time.
+Run `bun run build` to generate the production output. The `.next` directory contains rendered pages. All content pages pre-render at build time. Two routes (`/feed.xml`, `/sitemap.xml`) also generate at build time.
 
-### Deployment Options
+Vercel is the recommended deploy target. It provides automatic builds from Git. The site also deploys to `yugank.vercel.app` and `ygnk.dev`.
 
-- **Vercel** — This is the recommended deployment target. It provides automatic builds and deployments from Git.
-- **Any Node.js-compatible host** — Build the project and serve the `.next`输出, or export as static HTML.
+## Adding a Blog Post
 
-The site is currently deployed at `yugank.vercel.app` and `ygnk.dev`.
+1. Create a new file at `content/blog/<slug>.mdx`.
+2. Add the post metadata to the `posts` array in `app/blog/posts.ts`. The `slug` must match the filename without the `.mdx` extension.
+3. Write the post body in MDX. Supported elements: headings, paragraphs, lists, code blocks, inline code, blockquotes, tables, bold, italic.
+4. Add related project slugs to `relatedProjects` if applicable.
+5. Rebuild the project. The new post page generates automatically.
 
----
+## Adding a Project
 
-## Adding a New Blog Post
-
-1. Create a new MDX file in `content/blog/` using the slug as the filename:
-   ```
-   content/blog/my-new-post.mdx
-   ```
-
-2. Add an entry to the `posts` array in `app/blog/posts.ts`:
-   ```typescript
-   {
-     slug: "my-new-post",
-     title: "My New Post",
-     description: "A short summary of the post",
-     date: "2026-07-30",
-   }
-   ```
-
-3. Write the post content in MDX. Supported elements are headings (`#`–`###`), paragraphs, lists, code blocks (`` ``` ``), inline code (`` ` ``), blockquotes (`>`), tables, bold, and italic.
-
-4. If the post is related to a project, add the project's `slug` to the `relatedProjects` field.
-
-5. Rebuild the project to generate the new page.
-
----
-
-## Adding a New Project
-
-1. Add an entry to the `projects` array in `app/projects/projects.ts` with all required fields (`slug`, `title`, `summary`, `description`, `techStack`, `tags`, `challenges`, `features`, `future`, `timeline`).
-
-2. Optionally add `github` and/or `demo` URLs for links on the project page.
-
-3. Optionally add `relatedPosts` with slugs of blog posts that discuss the project.
-
-4. Rebuild the project to generate the new project page.
-
----
+1. Add a new entry to the `projects` array in `app/projects/projects.ts`.
+2. Include all required fields: `slug`, `title`, `summary`, `description`, `techStack`, `tags`, `challenges`, `features`, `future`, `timeline`.
+3. Add optional `github` and `demo` URLs for links.
+4. Add `relatedPosts` slugs if the project connects to blog posts.
+5. Rebuild the project. The new project page generates automatically.
 
 ## Design System
 
-### Color Palette
+### Colors
 
-The site uses a Dracula-inspired dark color palette:
-
-- **Background**: `#121316` — near-black with a slight blue undertone
-- **Foreground**: `#f7f7f2` — off-white for primary text
-- **Muted**: `#7a7a7a` — gray for secondary text and timestamps
-- **Surface**: `#1a1b1f` — slightly lighter than background for cards and code blocks
-- **Border**: `#555` — medium gray for all borders and dividers
-- **Accent**: `#bd93f9` — purple (Dracula's purple) for links, headings, and interactive elements
+| Token | Value | Use |
+|-------|-------|-----|
+| `--color-bg` | `#121316` | Page background |
+| `--color-fg` | `#f7f7f2` | Primary text |
+| `--color-muted` | `#7a7a7a` | Secondary text, timestamps |
+| `--color-surface` | `#1a1b1f` | Cards, code blocks |
+| `--color-border` | `#555` | Borders, dividers |
+| `--color-accent` | `#bd93f9` | Links, headings, buttons |
+| `--color-pink` | `#ff79c6` | Inline code text |
+| `--color-green` | `#96ce98` | Feature labels |
+| `--color-orange` | `#ffb86c` | Highlight warnings |
+| `--color-red` | `#ff5555` | Challenge indicators |
+| `--color-cyan` | `#8be9fd` | Code syntax |
+| `--color-yellow` | `#f1fa8c` | Text highlights |
 
 ### Typography
 
-| Font | Use | Applied To |
-|------|-----|------------|
-| JetBrains Mono | Code display and monospace | Global (`<html>` element) |
-| Geist | UI text | Project descriptions, labels |
-| Merriweather | Serif content | Not actively used in current template |
-| System fonts | Editorial prose | MDX headings and paragraphs (`font-editorial` class) |
+Three font families apply to the site:
+
+- **JetBrains Mono** — Applies globally. Used for code and monospace content.
+- **Geist** — Used with `font-geist` class for UI text like project descriptions.
+- **System fonts** — Used with `font-editorial` class for MDX prose.
 
 ### Layout
 
-- The site uses a centered content area with max-w-4xl-like constraints via percentage-based padding (`px-4 md:px-[20%]` on the root layout).
-- All content pages are wrapped in a bordered container (`border-x flex-1`) with the dot pattern background visible behind it.
-- Sections are separated by horizontal borders (`h-4 border-b` blocks).
-- The home page uses a two-column card grid for Blog and Projects navigation at the top.
+The site uses a centered content column. The root layout applies `px-4 md:px-[20%]` padding. Content pages sit inside a bordered container with the dot pattern behind it. Horizontal dividers separate sections on the home page.
 
 ### Animations
 
-Animations are subtel and purposeful:
-- **ScrambleText** — Text characters scramble on hover via GSAP ScrambleTextPlugin, resolving to the correct text.
-- **FallingPattern** — Radial gradient blobs scroll downward using Framer Motion, creating ambient depth.
-- **DotPattern** — Subtle dot grid pulsing animation for background texture.
+Three animation types exist:
 
-All animations respect user preferences and are not critical to content readability.
+1. **ScrambleText** — Characters rearrange on pointer hover. The effect resolves back to correct text.
+2. **FallingPattern** — Radial gradient blobs scroll downward in a loop.
+3. **DotPattern** — A dot grid pulse animation. It uses CSS `@keyframes` with a 4-second cycle.
 
----
-
-## Infrastructure
-
-### RSS Feed (`/feed.xml`)
-
-Auto-generated RSS 2.0 feed. It lists all posts sorted by date (newest first). Each item includes a title, link, description, publication date, and GUID. A self-referencing `atom:link` element is included for feed discovery.
-
-### Sitemap (`/sitemap.xml`)
-
-Auto-generated XML sitemap. It includes:
-
-- Homepage (priority 1.0, weekly)
-- Blog list (priority 0.8, weekly)
-- Projects list (priority 0.8, weekly)
-- Each blog post (priority 0.6, monthly)
-- Each project page (priority 0.6, monthly)
-
----
+All animations are decorative. They do not block content reading. They do not depend on content loading or user interaction.
 
 ## License
 
