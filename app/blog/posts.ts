@@ -8,6 +8,12 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+      slug: "tacit-desktop",
+      title: "Try Tacit",
+      description: "A new desktop for linux that is Modern and is easy to use.",
+      date: "2026-10-31",
+    },
+  {
     slug: "i-built-shy",
     title: "I built shy — a floating window manager for Hyprland",
     description: "Making floating windows disappear when you don't need them",
